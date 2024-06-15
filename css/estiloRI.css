@@ -1,0 +1,31 @@
+.contenido {
+    display: none;
+  }
+  
+  /* Mostrar Rotacion de inventario simple */
+  .opcion1:checked ~ #contenido1 {
+    display: block;
+  }
+  
+  /* Mostrar Rotacion de inventario por Stock */
+  .opcion2:checked ~ #contenido2 {
+    display: block;
+  }
+  
+  /* Ocultar el contenido cuando la opción no está seleccionada */
+  .opcion1:not(:checked) ~ #contenido1,
+  .opcion2:not(:checked) ~ #contenido2 {
+    display: none;
+  }
+
+
+  .marco{
+    width: 100%;
+    height: 500px;
+    border: 2px solid #f72585;
+  }
+
+  .titulo{
+    color: #f72585;
+    text-align: center;
+}

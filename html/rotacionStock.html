@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Metodo 2</title>
+  </head>
+  <body>
+    <div class="estiloRotacionStock">
+      <h2>A continuacion ingrese los datos correspondientes</h2>
+      <br />
+      <input type="number" id="demandaSemanal" placeholder="Demanda (d)" />
+      <br />
+      <br />
+      <input
+        type="number"
+        id="cicloRevision"
+        placeholder="Ciclo de Revision (T)"
+      />
+      <br /><br />
+      <input
+        type="number"
+        id="invSeguridad"
+        placeholder="Invetario seguridad (SS)"
+      />
+      <br />
+      <br />
+      <button id="rotacionStock">Calcular!</button> <br />
+      <p id="vps"></p>
+      <p id="respuesta"></p>
+      <script src="/javascript/calcularRiStock.js"></script>
+    </div>
+  </body>
+</html>

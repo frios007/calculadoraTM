@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Rotacion de inventario</title>
+    <link rel="stylesheet" href="/css/estiloRI.css" />
+  </head>
+  <body>
+    <h1 class="titulo">Seleccione el metodo a usar:</h1>
+    <a href="/html/menu.html"> ← Voler al Incio</a> <br />
+    <br />
+    <input
+      type="radio"
+      name="interruptor"
+      id="rotacionSimple"
+      class="opcion1"
+    />
+    <label for="rotacionSimple">Rotacion Simple</label>
+
+    <input type="radio" name="interruptor" id="rotacionStok" class="opcion2" />
+    <label for="rotacionStok">Rotacion por Stock</label>
+
+    <div id="contenido1" class="contenido">
+      <!-- Contenido para la opción 1 -->
+      <h2>Este es el contenido para la rotacion de inventario simple.</h2>
+      <iframe
+        src="/html/rotacionSimple.html"
+        name="marco1"
+        class="marco"
+      ></iframe>
+    </div>
+
+    <div id="contenido2" class="contenido">
+      <!-- Contenido para la opción 2 -->
+      <h2>Este es el contenido para la rotacion de invetario por Stock.</h2>
+      <iframe
+        src="/html/rotacionStock.html"
+        name="marco2"
+        class="marco"
+      ></iframe>
+    </div>
+  </body>
+</html>

@@ -1,0 +1,74 @@
+body{
+  font-family: Tahoma, sans-serif;
+  background-color: hsl(0, 5%, 92%);
+}
+
+.contenedor-grid{
+  display: grid;
+  grid-template-columns: 1fr;
+  align-items: center;
+  justify-content: center;
+  border: 5px hsla(0, 6%, 90%, 0.39) solid;
+  border-radius: 20px;
+  background-color: hsl(0, 0%, 100%);
+  height: 80vh;
+  width: 80vh;
+  margin: auto;
+  margin-top: 50px;
+  gap: 20px;
+}
+
+.contenedor-logo{
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: column;
+  align-items: center;
+  justify-content: end;
+  width: 50vh;
+  height: 40vh;
+  margin: auto;
+  font-size: small;
+}
+
+.contenedor-logo .imagen{
+  width: 50%;
+  height: 50%;
+}
+
+.contenedor-form{
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: column;
+  align-items: center;
+  justify-content: baseline;
+  width: 70vh;
+  height: 50vh;
+  margin: auto;
+}
+
+.contenedor-form form{
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.boton{
+justify-content: center;  
+margin: auto;
+border-radius: 5px;
+background-color: hsl(0, 0%, 33%);
+color: white;
+font-weight: bold;
+}
+
+.boton:hover{
+  background-color: hsl(0, 0%, 66%);
+}
+
+.entrada{
+  width: 35vh;
+  height: 3.5vh;
+  text-align: center;
+  border-radius: 5px;
+}

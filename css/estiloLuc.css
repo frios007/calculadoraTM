@@ -1,0 +1,45 @@
+h1{
+    text-align: center;
+    color: blue;
+}
+
+th{
+    width: 20px;
+}
+
+/* Ocultar las flechas de incremento y decremento */
+.req input[type="number"]::-webkit-inner-spin-button,
+.req input[type="number"]::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+.req input[type="number"] {
+  -moz-appearance: textfield;
+}
+
+.req input[type="number"] {
+  width: 40%; /* Cambia este valor según tus preferencias */
+  height: 20px; /* Cambia este valor según tus preferencias */
+  font-size: 14px; /* Cambia este valor según tus preferencias */
+  margin: auto;
+  display: block;
+}
+
+td{
+    text-align: center;
+    margin: auto;
+}
+
+button{
+    display: block;
+  margin: 0 auto;
+}
+
+        
+
+
+
+  
+     
+
+      

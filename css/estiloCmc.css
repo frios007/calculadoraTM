@@ -1,0 +1,67 @@
+body{
+margin: 0;
+font-family: Helvetica, sans-serif;
+background-color: hsl(0, 0%, 91%);
+text-align: center;
+}
+
+.contenedor1{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    padding-bottom: 20px;
+}
+
+.imagen_atras{
+margin-left: 5px;
+margin-right: auto;
+}
+
+.titulo{
+    margin-right: auto;
+}
+
+.contenedor1 img{
+width: 50px;
+height: 50px;
+}
+
+.calculo_cmc{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    background-color: white;
+    border-radius: 20px;
+    height: 60dvh;
+    width: 60dvh;
+    padding-top: 20px;
+    margin: auto;
+    border: 3px hsl(0, 0%, 85%) solid;
+}
+
+.entrada{
+    text-align: center;
+    border-radius: 10px;
+    width: 200px;
+}
+
+.boton{
+    border-radius: 5px;
+    background-color: hsl(0, 44%, 50%);
+    color: white;
+    font-weight: bold;
+}
+
+.boton:hover{
+    background-color: hsl(0, 99%, 35%);
+}
+
+input[type="number"]::-webkit-inner-spin-button,
+input[type="number"]::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}

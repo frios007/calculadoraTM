@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Calular EOQ</title>
+    <link rel="icon" href="/images/favicon.jpg" type="image/jpg" />
+    <link rel="stylesheet" href="/css/estiloEOQ.css" />
+  </head>
+  <body>
+    <header>
+      <div class="contenedor-titulo">
+        <div class="atras">
+          <a class="link-atras" href="/html/index.html"
+            ><img src="/images/home.png" alt="atras"
+          /></a>
+        </div>
+
+        <div class="titulo">
+          <h1 class="h1-titulo">Calcular metodo EOQ</h1>
+        </div>
+      </div>
+    </header>
+
+    <main>
+      <div class="contenedor">
+        <div class="calculo-eoq">
+          <h3>A continuacion ingrese los datos correspondientes:</h3>
+          <input
+            class="entrada"
+            type="number"
+            id="demanda"
+            placeholder=" Demanda Anual "
+            required
+          />
+          <input
+            class="entrada"
+            type="number"
+            id="costoP"
+            placeholder=" Costo por Pedido "
+            required
+          />
+          <input
+            class="entrada"
+            type="number"
+            id="costoM"
+            placeholder=" Costo Mantenimiento "
+            required
+          />
+          <button id="resolver" class="boton">Calcular EOQ</button>
+          <script src="/javascript/calcularEoq.js"></script>
+          <p class="resultado" id="resultado">El resultado aparecerá aquí.</p>
+        </div>
+      </div>
+    </main>
+  </body>
+</html>
