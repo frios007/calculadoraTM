@@ -3,39 +3,42 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Metodo 1</title>
+    <link rel="stylesheet" href="/css/estiloRotacionInv.css" />
+    <link rel="icon" href="/images/favicon.jpg" type="image/jpg" />
+    <title>Rotacion Simple</title>
   </head>
-  <body>
+  <body class="cuerpo-metodo">
+    <div class="contenedor-metodo1">
+      <div class="contenedor-rotacion-simple">
+        <form action="">
+          <h3>A continuacion ingrese los datos correspondientes</h3>
+          <input
+            class="entrada"
+            type="number"
+            id="demandaAnual"
+            placeholder="Demanda Anual (D)"
+          />
 
-    <form action="">
-      
-      <div class="estiloRotacionSimple">
-        <h2>A continuacion ingrese los datos correspondientes</h2>
+          <input
+            class="entrada"
+            type="number"
+            id="cantidadPedida"
+            placeholder="Cantidad pedida (Q)"
+          />
 
-        <input
-          type="number"
-          id="demandaAnual"
-          placeholder="Demanda Anual (D)"
-        />
+          <input
+            class="entrada"
+            type="number"
+            id="inventarioSeguridad"
+            placeholder="Inventario Seguridad (SS)"
+          />
 
-        <input
-          type="number"
-          id="cantidadPedida"
-          placeholder="Cantidad pedida (Q)"
-        />
-
-        <input
-          type="number"
-          id="inventarioSeguridad"
-          placeholder="Inventario Seguridad (SS)"
-        />
-
-        <button id="rotacionSimple">Calcular!</button><br />
-        <p id="invetarioPromedio"></p>
-        <p id="resultado"></p>
-        <script src="/javascript/calcularRI.js"></script>
+          <button class="boton" id="rotacionSimple">Calcular!</button><br />
+          <p id="invetarioPromedio"></p>
+          <p id="resultado"></p>
+          <script src="/javascript/calcularRI.js"></script>
+        </form>
       </div>
-    </form>
-
+    </div>
   </body>
 </html>

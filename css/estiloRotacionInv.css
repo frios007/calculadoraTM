@@ -38,7 +38,6 @@ body{
 }
 
 .rotacion-simple{
-  color: white;
   background-color: hsl(0, 100%, 30%);
   font-weight: bold;
   border: 3px solid hsl(180, 12%, 25%);
@@ -54,7 +53,6 @@ body{
 }
 
 .rotacion-stock{
-  color: white;
   background-color:  hsl(0, 100%, 30%);
   font-weight: bold;
   border: 3px solid hsl(180, 12%, 25%);
@@ -70,6 +68,7 @@ body{
 
 .vinculo{
   text-decoration: none;
+  color: white;
 }
 
 .rotacion-simple a:visited{
@@ -105,3 +104,52 @@ color: white;
   height: 100%;
 }
 
+.contenedor-rotacion-simple form, h3{
+display: flex;
+flex-direction: column;
+justify-content: center;
+align-items: center;
+gap: 15px;
+}
+
+
+.cuerpo-metodo{
+  background-color: white;
+}
+
+.frame-contenedor{
+  border-radius: 15px;
+}
+
+input[type="number"]::-webkit-inner-spin-button,
+input[type="number"]::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+.entrada{
+  text-align: center;
+  border-radius: 5px;
+  height: 20px;
+}
+
+.boton{
+  width: 110px;
+  border-radius: 15px;
+  background-color: hsl(0, 44%, 50%);
+  color: white;
+  font-weight: bold;
+  height: 25px;
+}
+
+.boton:hover{
+  background-color: hsl(0, 99%, 35%);
+}
+
+.contenedor-metodo2 form{
+display: flex;
+flex-direction: column;
+justify-content: center;
+align-items: center;
+gap: 15px;
+}
