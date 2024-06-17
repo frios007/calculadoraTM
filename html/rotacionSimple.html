@@ -6,31 +6,36 @@
     <title>Metodo 1</title>
   </head>
   <body>
-    <div class="estiloRotacionSimple">
-      <h2>A continuacion ingrese los datos correspondientes</h2>
-      <br />
-      <input type="number" id="demandaAnual" placeholder="Demanda Anual (D)" />
-      <br />
-      <br />
-      <input
-        type="number"
-        id="cantidadPedida"
-        placeholder="Cantidad pedida (Q)"
-      />
-      <br />
-      <br />
-      <input
-        type="number"
-        id="inventarioSeguridad"
-        placeholder="Inventario Seguridad (SS)"
-      />
-      <br />
-      <br />
-      <button id="rotacionSimple">Calcular!</button><br />
-      <p id="invetarioPromedio"></p>
-      <p id="resultado"></p>
-      <script src="/javascript/calcularRI.js"></script>
-      <br />
-    </div>
+
+    <form action="">
+      
+      <div class="estiloRotacionSimple">
+        <h2>A continuacion ingrese los datos correspondientes</h2>
+
+        <input
+          type="number"
+          id="demandaAnual"
+          placeholder="Demanda Anual (D)"
+        />
+
+        <input
+          type="number"
+          id="cantidadPedida"
+          placeholder="Cantidad pedida (Q)"
+        />
+
+        <input
+          type="number"
+          id="inventarioSeguridad"
+          placeholder="Inventario Seguridad (SS)"
+        />
+
+        <button id="rotacionSimple">Calcular!</button><br />
+        <p id="invetarioPromedio"></p>
+        <p id="resultado"></p>
+        <script src="/javascript/calcularRI.js"></script>
+      </div>
+    </form>
+
   </body>
 </html>

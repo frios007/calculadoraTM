@@ -49,9 +49,10 @@ body {
 .contenedor2 img:hover{
     transform: scale(1.05);
     border: 2px solid #0CAFFF;
+    color: #0CAFFF;
 }
 
-.contenedor2 a:hover{
+.contenedor2 :hover{
     color: #0CAFFF;
     transform: scale(1.1);
 }
