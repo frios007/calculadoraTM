@@ -3,9 +3,34 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Document</title>
+    <title>MRP Calculator</title>
+    <link rel="stylesheet" href="/css/estiloArboreo.css" />
+    <link rel="icon" href="/images/favicon.jpg" type="image/jpg" />
   </head>
   <body>
-    <h1>hola</h1>
+    <header>
+      <h1>MRP Calculator</h1>
+    </header>
+    <main>
+      <section id="input-section">
+        <h2>Enter the quantity of Product M:</h2>
+        <input type="number" id="quantityM" min="1" value="100" />
+        <button onclick="calculateMRP()">Calculate</button>
+      </section>
+      <section id="output-section">
+        <h2>MRP Results</h2>
+        <div id="results"></div>
+      </section>
+    </main>
+    <footer>
+      <p>&copy; 2024 Your Company</p>
+    </footer>
+    <script src="/javascript/arboreo.js"></script>
   </body>
 </html>
+
+<!--
+    <script src="/javascript/arboreo.js"></script>
+    <link rel="stylesheet" href="/css/estiloArboreo.css" />
+    <link rel="icon" href="/images/favicon.jpg" type="image/jpg" />
+-->
