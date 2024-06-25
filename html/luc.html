@@ -5,19 +5,22 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Calcular LUC</title>
     <link rel="stylesheet" href="/css/estiloLuc.css" />
-    <link rel="icon" href="/images/favicon.jpg" type="image/jpg">
+    <link rel="icon" href="/images/favicon.jpg" type="image/jpg" />
     <script src="/javascript/calcularLuc.js"></script>
-
   </head>
   <body>
-    <button onclick="generarTabla()">Generar Tabla</button>
+    <button onclick="generarTabla(); generarTablaCalculos();">
+      Generar Tabla
+    </button>
+    <input type="number" id="numColumnas" placeholder="Ingrese semanas" />
 
-    <div id="tabla-contenedor">
-      <input type="number" id="numColumnas" placeholder="Ingrese semanas">
-    </div>
+    <div id="tabla-contenedor"></div>
 
+    <div id="tabla-calculos"></div>
+
+    <input type="number" id="k" placeholder="ingrese el valor de K" />
+    <input type="number" id="S" placeholder="ingrese el valor de S" />
     <button onclick="calculos()">obtener #</button>
-    
   </body>
 </html>
 
