@@ -1,11 +1,16 @@
 .styled-input {
-  width: 40%;
+  width: 40px;
   margin: auto;
   height: 20px;
   display: block; /* Esto ayudará a centrar el input */
 }
 
-
+.styled-input2 {
+  width: 60px;
+  margin: auto;
+  height: 20px;
+  display: block; /* Esto ayudará a centrar el input */
+}
 
 h1{
     text-align: center;

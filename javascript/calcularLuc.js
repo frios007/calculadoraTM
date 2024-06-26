@@ -26,6 +26,7 @@ function generarTabla() {
     tabla.setAttribute('cellspacing', '0');
     tabla.setAttribute('cellpadding', '3');
     tabla.setAttribute('width', '90%');
+    tabla.setAttribute('id', 'tabla-semanas');
 
     var thead = document.createElement('thead');
     var tbody = document.createElement('tbody');
@@ -97,7 +98,11 @@ function generarTablaCalculos() {
     tablaContenedor2.innerHTML = '';
 
     var tabla2 = document.createElement('table');
-    tabla2.border = '1';
+    tabla2.setAttribute('id', 'tabla-calculos');
+    tabla2.setAttribute('border', '1');
+    tabla2.setAttribute('cellspacing', '0');
+    tabla2.setAttribute('cellpadding', '3');
+    tabla2.setAttribute('width', '90%');
 
     var thead2 = document.createElement('thead');
     var encabezadoFila2 = document.createElement('tr');
@@ -119,12 +124,21 @@ function generarTablaCalculos() {
 
         for (var j = 0; j < columnas2.length; j++) {
             var td2 = document.createElement('td');
-            var input2 = document.createElement('input');
-            input2.type = 'number';
-            input2.name = columnas2[j].toLowerCase() + i;
-            input2.disabled = true;
 
-            td2.appendChild(input2);
+            if (j === 0) {
+                // Mostrar el conteo simple de 1 hasta numColumnas
+                var span = document.createElement('span');
+                span.textContent = i + 1;
+                td2.appendChild(span);
+            } else {
+                var input2 = document.createElement('input');
+                input2.classList.add('styled-input2');
+                input2.type = 'number';
+                input2.id = columnas2[j].toLowerCase().replace(/ /g, '-') + i;
+                input2.disabled = true;
+                td2.appendChild(input2);
+            }
+
             fila2.appendChild(td2);
         }
         tbody2.appendChild(fila2);
@@ -134,7 +148,9 @@ function generarTablaCalculos() {
     tablaContenedor2.appendChild(tabla2);
 }
 
-function calculos() {
+
+function validarTablas() {
+
     var valores = [];
     var inputs = document.querySelectorAll('#tabla-contenedor input[type="number"]');
     var valorNegativoEncontrado = false;
@@ -154,9 +170,13 @@ function calculos() {
             valorNegativoEncontrado = true;
             return;
         }
-
         valores.push(valor);
     });
+
+    if(valores.length === 0){
+        alert('Advertencia: Debes de indicar valores validos del Requerimiento bruto.');
+        return;
+    }
 
     if (campoVacioEncontrado) {
         alert('Advertencia: Hay campos vacíos o erroneos. Por favor, complete todos los valores adecuadamente.');
@@ -168,22 +188,60 @@ function calculos() {
         return;
     }
 
-    console.log("Valores ingresados:", valores);
 
     let k = document.getElementById('k').value;
+    k = parseInt(k);
     let s = document.getElementById('s').value;
+    s = parseInt(s);
 
-    if(isNaN(k) || isNaN(s)){
-        alert('Advertencia: los valores de k y s deben ser numeros validos');
+    if(isNaN(k) || k <=0){
+        alert('Advertencia: Ingrese un valor valido para k');
+        return;
     }
 
+    if(isNaN(s) || s <=0){
+        alert('Advertencia: Ingrese un valor valido para s');
+        return;
+    }
 }
 
 
-/*
+function operaciones(){
+
+    var periodos = [];
+    var tabla = document.getElementById('tabla-calculos');
+    var datos = tabla.querySelectorAll('tbody td:first-child span');
+
+    datos.forEach(function(span){
+        var valor = parseInt(span.textContent, 10);
+        periodos.push(valor);
+    });
+
+    var unidades = [];
+    var tabla = document.getElementById('tabla-semanas');
+    var tbody = tabla.querySelector('tbody');
+    
+    if (tbody) {
+        var inputs = tbody.querySelectorAll('input[type="number"]'); 
+        inputs.forEach(function(input) {
+            var valor = parseInt(input.value, 10);
+            unidades.push(valor);
+        });
+    }
+    
+    console.log(periodos);
+    console.log(unidades);
+
+    var k = parseInt(document.getElementById('k').value);
+    var s = parseInt(document.getElementById('s').value);
+
+}
+
+/* 
 
 document.getElementById("calcularLuc").addEventListener("click", function(){
-
+tabla-calculos
+tabla-semanas
     var s = parseFloat(document.getElementById("costo-ordenar").value);
     var k = parseFloat(document.getElementById("k").value);
     var unidad_1 = parseFloat(document.getElementById("unidad1").value);
