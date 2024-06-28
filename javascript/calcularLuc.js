@@ -86,15 +86,14 @@ function generarTabla() {
 
 
 function generarTablaCalculos() {
-
     var camposValidos = validarCampos();
     if (!camposValidos) {
         return;
     }
 
     var numColumnas = parseInt(document.getElementById('numColumnas').value, 10);
-    var tablaContenedor2 = document.getElementById('tabla-calculos');
-    
+    var tablaContenedor2 = document.getElementById('tabla-contenedor2');
+
     tablaContenedor2.innerHTML = '';
 
     var tabla2 = document.createElement('table');
@@ -124,29 +123,25 @@ function generarTablaCalculos() {
 
         for (var j = 0; j < columnas2.length; j++) {
             var td2 = document.createElement('td');
+            var span = document.createElement('span');
 
             if (j === 0) {
-                // Mostrar el conteo simple de 1 hasta numColumnas
-                var span = document.createElement('span');
                 span.textContent = i + 1;
-                td2.appendChild(span);
             } else {
-                var input2 = document.createElement('input');
-                input2.classList.add('styled-input2');
-                input2.type = 'number';
-                input2.id = columnas2[j].toLowerCase().replace(/ /g, '-') + i;
-                input2.disabled = true;
-                td2.appendChild(input2);
+                span.textContent = '';
             }
 
+            td2.appendChild(span);
             fila2.appendChild(td2);
         }
         tbody2.appendChild(fila2);
     }
-    
+
     tabla2.appendChild(tbody2);
     tablaContenedor2.appendChild(tabla2);
 }
+
+
 
 
 function validarTablas() {
@@ -206,7 +201,18 @@ function validarTablas() {
 }
 
 
+
 function operaciones(){
+
+    var numColumnas = parseInt(document.getElementById('numColumnas').value, 10);
+
+    for (var i = 0; i < numColumnas; i++) {
+        var requerimientoInput = document.getElementById('unidad' + (i + 1));
+        var unidadesSpan = document.querySelector('#tabla-calculos tbody tr:nth-child(' + (i + 1) + ') td:nth-child(2) span');
+        if (requerimientoInput && unidadesSpan) {
+            unidadesSpan.textContent = requerimientoInput.value;
+        }
+    }
 
     var periodos = [];
     var tabla = document.getElementById('tabla-calculos');
@@ -218,13 +224,14 @@ function operaciones(){
     });
 
     var unidades = [];
-    var tabla = document.getElementById('tabla-semanas');
-    var tbody = tabla.querySelector('tbody');
+    var tablaUnidades = document.getElementById('tabla-calculos');
+    var tbodyUnidades = tablaUnidades.querySelector('tbody');
     
-    if (tbody) {
-        var inputs = tbody.querySelectorAll('input[type="number"]'); 
-        inputs.forEach(function(input) {
-            var valor = parseInt(input.value, 10);
+    if (tbodyUnidades) {
+        var spansUnidades = tbodyUnidades.querySelectorAll('td:nth-child(2) span');
+    
+        spansUnidades.forEach(function(span) {
+            var valor = parseInt(span.textContent, 10);
             unidades.push(valor);
         });
     }
@@ -235,10 +242,16 @@ function operaciones(){
     var k = parseInt(document.getElementById('k').value);
     var s = parseInt(document.getElementById('s').value);
 
+  var nuevoK = parseInt(periodos[0]) * 0 * k;
+  var nuevoCostoTotal = s + nuevoK;
+  var nuevoCostoUnitario = (nuevoCostoTotal/parseInt(unidades[0])).toFixed(4); 
+
+    console.log(nuevoK+" "+nuevoCostoTotal+" "+nuevoCostoUnitario);
 }
 
-/* 
 
+
+/* 
 document.getElementById("calcularLuc").addEventListener("click", function(){
 tabla-calculos
 tabla-semanas
@@ -248,22 +261,12 @@ tabla-semanas
     var unidad_2 = parseFloat(document.getElementById("unidad2").value);
     var unidad_3 = parseFloat(document.getElementById("unidad3").value);
     var unidad_4 = parseFloat(document.getElementById("unidad4").value);
-    var unidad_5 = parseFloat(document.getElementById("unidad5").value);
-    var unidad_6 = parseFloat(document.getElementById("unidad6").value);
-    var unidad_7 = parseFloat(document.getElementById("unidad7").value);
-    var unidad_8 = parseFloat(document.getElementById("unidad8").value);
-    var unidad_9 = parseFloat(document.getElementById("unidad9").value);
-    var unidad_10 = parseFloat(document.getElementById("unidad10").value);
+
     var periodo1=1;
     var periodo2=2;
     var periodo3=3;
     var periodo4=4;
     var periodo5=5;
-    var periodo6=6;
-    var periodo7=7;
-    var periodo8=8;
-    var periodo9=9;
-    var periodo10=10;
 
 
     //primera iteracion
