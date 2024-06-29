@@ -142,8 +142,6 @@ function generarTablaCalculos() {
 }
 
 
-
-
 function validarTablas() {
 
     var valores = [];
@@ -189,65 +187,78 @@ function validarTablas() {
     let s = document.getElementById('s').value;
     s = parseInt(s);
 
-    if(isNaN(k) || k <=0){
+    if(isNaN(k) || k <0){
         alert('Advertencia: Ingrese un valor valido para k');
         return;
     }
 
-    if(isNaN(s) || s <=0){
+    if(isNaN(s) || s <0){
         alert('Advertencia: Ingrese un valor valido para s');
         return;
     }
 }
 
 
-
-function operaciones(){
-
+function operaciones() {
     var numColumnas = parseInt(document.getElementById('numColumnas').value, 10);
 
+    // Obtener el requerimiento bruto y ponerlo en la tabla de cálculos
+    var unidades = [];
     for (var i = 0; i < numColumnas; i++) {
         var requerimientoInput = document.getElementById('unidad' + (i + 1));
+        var unidad = parseInt(requerimientoInput.value, 10);
+        unidades.push(unidad);
+
         var unidadesSpan = document.querySelector('#tabla-calculos tbody tr:nth-child(' + (i + 1) + ') td:nth-child(2) span');
-        if (requerimientoInput && unidadesSpan) {
-            unidadesSpan.textContent = requerimientoInput.value;
+        if (unidadesSpan) {
+            unidadesSpan.textContent = unidad;
         }
     }
 
-    var periodos = [];
-    var tabla = document.getElementById('tabla-calculos');
-    var datos = tabla.querySelectorAll('tbody td:first-child span');
+    // Obtener los valores de S y K
+    var s = parseFloat(document.getElementById('s').value);
+    var k = parseFloat(document.getElementById('k').value);
 
-    datos.forEach(function(span){
-        var valor = parseInt(span.textContent, 10);
-        periodos.push(valor);
-    });
+    // Inicializar variables para el cálculo
+    var acumuladoPeriodos = 0;
+    var costoTotalAnterior = 0;
 
-    var unidades = [];
-    var tablaUnidades = document.getElementById('tabla-calculos');
-    var tbodyUnidades = tablaUnidades.querySelector('tbody');
-    
-    if (tbodyUnidades) {
-        var spansUnidades = tbodyUnidades.querySelectorAll('td:nth-child(2) span');
-    
-        spansUnidades.forEach(function(span) {
-            var valor = parseInt(span.textContent, 10);
-            unidades.push(valor);
-        });
+    // Iterar sobre cada periodo
+    for (var i = 0; i < numColumnas; i++) {
+        var periodoActual = i + 1;
+        var unidadesActuales = unidades.slice(0, periodoActual).reduce((a, b) => a + b, 0);
+        var nuevoK = 0;
+        var nuevoCostoTotal = 0;
+
+        if (periodoActual === 1) {
+            // Primera iteración
+            nuevoK = 0;
+            nuevoCostoTotal = s;  // Costo total inicialmente es igual a S
+        } else {
+            // Iteraciones posteriores
+            acumuladoPeriodos += (periodoActual - 1);  // Suma acumulada de los periodos anteriores
+            nuevoK = acumuladoPeriodos * (periodoActual - 1) * k;  // Calcular K acumulado
+            nuevoCostoTotal = costoTotalAnterior + nuevoK;  // Calcular costo total acumulado
+        }
+
+        // Calcular costo total unitario
+        var nuevoCostoUnitario = (nuevoCostoTotal / unidadesActuales).toFixed(5);
+
+        // Actualizar el costo total anterior para la siguiente iteración
+        costoTotalAnterior = nuevoCostoTotal;
+
+        // Actualizar la fila correspondiente en la tabla de cálculos
+        var fila = document.querySelector('#tabla-calculos tbody tr:nth-child(' + periodoActual + ')');
+        fila.querySelector('td:nth-child(3) span').textContent = s.toFixed(2);  // Mostrar S con 2 decimales
+        fila.querySelector('td:nth-child(4) span').textContent = nuevoK.toFixed(5);  // Mostrar K con 5 decimales
+        fila.querySelector('td:nth-child(5) span').textContent = nuevoCostoTotal.toFixed(2);  // Mostrar Costo total con 2 decimales
+        fila.querySelector('td:nth-child(6) span').textContent = nuevoCostoUnitario;  // Mostrar Costo total unitario con 5 decimales
     }
-    
-    console.log(periodos);
-    console.log(unidades);
-
-    var k = parseInt(document.getElementById('k').value);
-    var s = parseInt(document.getElementById('s').value);
-
-  var nuevoK = parseInt(periodos[0]) * 0 * k;
-  var nuevoCostoTotal = s + nuevoK;
-  var nuevoCostoUnitario = (nuevoCostoTotal/parseInt(unidades[0])).toFixed(4); 
-
-    console.log(nuevoK+" "+nuevoCostoTotal+" "+nuevoCostoUnitario);
 }
+
+
+
+
 
 
 
