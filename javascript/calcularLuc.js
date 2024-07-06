@@ -118,19 +118,23 @@ function generarTablaCalculos() {
 
     var tbody2 = document.createElement('tbody');
 
+    var sumaAcumuladaPeriodo = 0;
+
     for (var i = 0; i < numColumnas; i++) {
         var fila2 = document.createElement('tr');
 
-        for (var j = 0; j < columnas2.length; j++) {
+        var tdPeriodo = document.createElement('td');
+        var spanPeriodo = document.createElement('span');
+        spanPeriodo.setAttribute('id', i+1);
+        sumaAcumuladaPeriodo += (i + 1);
+        spanPeriodo.textContent = sumaAcumuladaPeriodo;
+        tdPeriodo.appendChild(spanPeriodo);
+        fila2.appendChild(tdPeriodo);
+
+        for (var j = 1; j < columnas2.length; j++) {
             var td2 = document.createElement('td');
             var span = document.createElement('span');
-
-            if (j === 0) {
-                span.textContent = i + 1;
-            } else {
-                span.textContent = '';
-            }
-
+            span.textContent = '';
             td2.appendChild(span);
             fila2.appendChild(td2);
         }
@@ -143,7 +147,6 @@ function generarTablaCalculos() {
 
 
 function validarTablas() {
-
     var valores = [];
     var inputs = document.querySelectorAll('#tabla-contenedor input[type="number"]');
     var valorNegativoEncontrado = false;
@@ -159,7 +162,7 @@ function validarTablas() {
 
         valor = parseFloat(valor);
 
-        if (valor < 0) {
+        if (valor <= 0) {
             valorNegativoEncontrado = true;
             return;
         }
@@ -167,149 +170,153 @@ function validarTablas() {
     });
 
     if(valores.length === 0){
-        alert('Advertencia: Debes de indicar valores validos del Requerimiento bruto.');
-        return;
+        alert('Advertencia: Debes de indicar valores válidos del Requerimiento bruto.');
+        return false;
     }
 
     if (campoVacioEncontrado) {
-        alert('Advertencia: Hay campos vacíos o erroneos. Por favor, complete todos los valores adecuadamente.');
-        return;
+        alert('Advertencia: Hay campos vacíos o erróneos. Por favor, complete todos los valores adecuadamente.');
+        return false;
     }
 
     if (valorNegativoEncontrado) {
         alert('Advertencia: Se ingresó un valor negativo. Por favor, corrija los valores.');
-        return;
+        return false;
     }
-
 
     let k = document.getElementById('k').value;
     k = parseInt(k);
     let s = document.getElementById('s').value;
     s = parseInt(s);
 
-    if(isNaN(k) || k <0){
-        alert('Advertencia: Ingrese un valor valido para k');
-        return;
+    if(isNaN(k) || k < 0){
+        alert('Advertencia: Ingrese un valor válido para k');
+        return false;
     }
 
-    if(isNaN(s) || s <0){
-        alert('Advertencia: Ingrese un valor valido para s');
-        return;
+    if(isNaN(s) || s < 0){
+        alert('Advertencia: Ingrese un valor válido para s');
+        return false;
     }
+
+    return true;
 }
 
 
-function operaciones() {
-    var numColumnas = parseInt(document.getElementById('numColumnas').value, 10);
 
-    // Obtener el requerimiento bruto y ponerlo en la tabla de cálculos
+function operaciones() {
+
+    var tablasValidas = validarTablas();
+    if (!tablasValidas) {
+        return;
+    }
+
+    var numColumnas = parseInt(document.getElementById('numColumnas').value, 10);
+    var s = parseFloat(document.getElementById('s').value);
+    var k = parseFloat(document.getElementById('k').value);
+
     var unidades = [];
+    var sumaAcumuladaUnidades = 0;
+
     for (var i = 0; i < numColumnas; i++) {
         var requerimientoInput = document.getElementById('unidad' + (i + 1));
         var unidad = parseInt(requerimientoInput.value, 10);
         unidades.push(unidad);
+        sumaAcumuladaUnidades += unidad;
 
         var unidadesSpan = document.querySelector('#tabla-calculos tbody tr:nth-child(' + (i + 1) + ') td:nth-child(2) span');
         if (unidadesSpan) {
-            unidadesSpan.textContent = unidad;
+            unidadesSpan.textContent = sumaAcumuladaUnidades;
         }
     }
 
-    // Obtener los valores de S y K
-    var s = parseFloat(document.getElementById('s').value);
-    var k = parseFloat(document.getElementById('k').value);
+    var tablaCalculos = document.getElementById('tabla-calculos');
+    var tbodyCalculos = tablaCalculos.querySelector('tbody');
 
-    // Inicializar variables para el cálculo
-    var acumuladoPeriodos = 0;
+    var periodoAnterior = 0; 
     var costoTotalAnterior = 0;
 
-    // Iterar sobre cada periodo
-    for (var i = 0; i < numColumnas; i++) {
-        var periodoActual = i + 1;
-        var unidadesActuales = unidades.slice(0, periodoActual).reduce((a, b) => a + b, 0);
-        var nuevoK = 0;
-        var nuevoCostoTotal = 0;
+    var filas = tbodyCalculos.querySelectorAll('tr');
+    filas.forEach(function(fila, indice) {
+        var periodoActual = parseFloat(fila.querySelector('td:nth-child(1) span').textContent);
 
-        if (periodoActual === 1) {
-            // Primera iteración
-            nuevoK = 0;
-            nuevoCostoTotal = s;  // Costo total inicialmente es igual a S
+        var celdaS = fila.querySelector('td:nth-child(3)');
+        celdaS.textContent = s.toFixed(2); 
+
+        var kCalculado = 0;
+        if (indice > 0) {
+            var idPeriodoAnterior = parseFloat(filas[indice - 1].querySelector('td:nth-child(1) span').id);
+            kCalculado = periodoActual * idPeriodoAnterior * k;
         } else {
-            // Iteraciones posteriores
-            acumuladoPeriodos += (periodoActual - 1);  // Suma acumulada de los periodos anteriores
-            nuevoK = acumuladoPeriodos * (periodoActual - 1) * k;  // Calcular K acumulado
-            nuevoCostoTotal = costoTotalAnterior + nuevoK;  // Calcular costo total acumulado
+            kCalculado = k * periodoActual * 0;
         }
 
-        // Calcular costo total unitario
-        var nuevoCostoUnitario = (nuevoCostoTotal / unidadesActuales).toFixed(5);
+        var costoTotal = 0;
+        if (indice > 0) {
+            costoTotal = costoTotalAnterior + kCalculado;
+        } else {
+            costoTotal = s + kCalculado;
+        }
 
-        // Actualizar el costo total anterior para la siguiente iteración
-        costoTotalAnterior = nuevoCostoTotal;
+        var unidadesActual = parseFloat(fila.querySelector('td:nth-child(2) span').textContent);
 
-        // Actualizar la fila correspondiente en la tabla de cálculos
-        var fila = document.querySelector('#tabla-calculos tbody tr:nth-child(' + periodoActual + ')');
-        fila.querySelector('td:nth-child(3) span').textContent = s.toFixed(2);  // Mostrar S con 2 decimales
-        fila.querySelector('td:nth-child(4) span').textContent = nuevoK.toFixed(5);  // Mostrar K con 5 decimales
-        fila.querySelector('td:nth-child(5) span').textContent = nuevoCostoTotal.toFixed(2);  // Mostrar Costo total con 2 decimales
-        fila.querySelector('td:nth-child(6) span').textContent = nuevoCostoUnitario;  // Mostrar Costo total unitario con 5 decimales
-    }
+        var costoTotalUnitario = costoTotal / unidadesActual;
+
+        var celdaK = fila.querySelector('td:nth-child(4)');
+        var celdaCostoTotal = fila.querySelector('td:nth-child(5)');
+        var celdaCostoTotalUnitario = fila.querySelector('td:nth-child(6)');
+
+        celdaK.textContent = kCalculado.toFixed(2);
+        celdaCostoTotal.textContent = costoTotal.toFixed(2);
+        celdaCostoTotalUnitario.textContent = costoTotalUnitario.toFixed(5);
+
+        costoTotalAnterior = costoTotal;
+        periodoAnterior = periodoActual;
+    });
 }
 
+function resaltarMaximosYCopiar() {
 
+    var tablasValidas = validarTablas();
+    if (!tablasValidas) {
+        return;
+    }
 
+    var filasCalculos = document.querySelectorAll('#tabla-calculos tbody tr');
 
+    var costosUnitarios = [];
 
+    filasCalculos.forEach(function(fila) {
+        var costoUnitario = parseFloat(fila.querySelector('td:nth-child(6)').textContent);
+        costosUnitarios.push(costoUnitario);
+    });
 
+    var tablaOriginal = document.getElementById('tabla-semanas');
+    var filaRecepcion = tablaOriginal.querySelector('tbody tr:nth-child(2)');
 
-/* 
-document.getElementById("calcularLuc").addEventListener("click", function(){
-tabla-calculos
-tabla-semanas
-    var s = parseFloat(document.getElementById("costo-ordenar").value);
-    var k = parseFloat(document.getElementById("k").value);
-    var unidad_1 = parseFloat(document.getElementById("unidad1").value);
-    var unidad_2 = parseFloat(document.getElementById("unidad2").value);
-    var unidad_3 = parseFloat(document.getElementById("unidad3").value);
-    var unidad_4 = parseFloat(document.getElementById("unidad4").value);
+    costosUnitarios.forEach(function(costoUnitario, index) {
+        var tdRecepcion = filaRecepcion.querySelector('td:nth-child(' + (index + 2) + ')');
+        if (tdRecepcion) {
+            tdRecepcion.textContent = costoUnitario.toFixed(5);
+        }
+    });
 
-    var periodo1=1;
-    var periodo2=2;
-    var periodo3=3;
-    var periodo4=4;
-    var periodo5=5;
+    var costosTotales = [];
 
+    filasCalculos.forEach(function(fila) {
+        var costoTotal = parseFloat(fila.querySelector('td:nth-child(5)').textContent);
+        costosTotales.push({ fila: fila, costoTotal: costoTotal });
+    });
 
-    //primera iteracion
-    var k0= periodo1*0*k;
-    var ct = s + k0;
-    var cut = (ct / unidad_1).toFixed(4);
-    var cutLimitado = cut;
+    costosTotales.sort(function(a, b) {
+        return b.costoTotal - a.costoTotal;
+    });
 
-    document.getElementById("ip1").innerText=periodo1;
-    document.getElementById("iu1").innerText=unidad_1;
-    document.getElementById("is1").innerText=s;
-    document.getElementById("ik1").innerText=periodo1+" * "+k+" * "+s+" = "+k;
-    document.getElementById("ict1").innerText=ct;
-    document.getElementById("icu1").innerText=cutLimitado;
-    
+    var fila1 = costosTotales[0].fila;
+    var fila2 = costosTotales[1].fila;
 
-    //segunda iteracion
-    var p1 = periodo1 + periodo2;
-    var u1= unidad_1 + unidad_2;
-    var k1 = (p1 * periodo1 * k);
-    k1= parseFloat(k1.toFixed(4));
-    var ct1 = ct + k1;
-    var cut1 = (ct1/u1);
-    cut1=parseFloat(cut1.toFixed(4));
-
-    document.getElementById("ip2").innerText=periodo1+" + "+periodo2;
-    document.getElementById("iu2").innerText=unidad_1 +" + "+ unidad_2;
-    document.getElementById("is2").innerText=s;
-    document.getElementById("ik2").innerText=p1 +" * "+ periodo1 +" * "+ k+" = "+k1;
-    document.getElementById("ict2").innerText=ct +" + "+ k1+" = "+ct1;
-    document.getElementById("icu2").innerText=ct1+" / "+u1+" = "+cut1;
-})
-*/ 
+    fila1.style.color = 'red';
+    fila2.style.color = 'red';
+}
 
 
