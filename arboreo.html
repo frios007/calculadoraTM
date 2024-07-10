@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Diagrama Arboreo</title>
+  <link rel="stylesheet" href="/estiloArboreo.css" />
+  <link rel="icon" href="/favicon.jpg" type="image/jpg" />
+</head>
+<body>
+  <div class="container">
+    <h1>Calculadora de BOM de Bicicleta</h1>
+    
+    <div class="input-section">
+      <label for="cantidadBicicletas">Cantidad de Bicicletas:</label>
+      <input type="number" id="cantidadBicicletas" min="1" value="1">
+      <button onclick="calcularBOM()">Calcular</button>
+    </div>
+    
+    <div id="resultadoBOM">
+      <!-- Aquí se mostrará el resultado del BOM calculado -->
+    </div>
+
+    <div id="diagramaBOM">
+      <!-- Aquí se mostrará el diagrama visual del BOM -->
+    </div>
+  </div>
+
+  <script src="/arboreo.js"></script>
+</body>
+</html>
+
+
+
+<!--
+    <script src="/javascript/arboreo.js"></script>
+    <link rel="stylesheet" href="/css/estiloArboreo.css" />
+    <link rel="icon" href="/images/favicon.jpg" type="image/jpg" />
+-->

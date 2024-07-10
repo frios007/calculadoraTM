@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Calculadora de BOM de Mesa</title>
+    <link rel="icon" href="/favicon.jpg" type="image/jpg" />
+    <link rel="stylesheet" href="/estiloArboreo2.css" />
+  </head>
+  <body>
+    <div class="container">
+      <h1>Diagrama Arboreo de una Mesa</h1>
+
+      <div class="input-section">
+        <label for="cantidadMesas">Cantidad de Mesas:</label>
+        <input type="number" id="cantidadMesas" min="1" value="1" />
+        <button onclick="calcularBOM()">Calcular</button>
+      </div>
+
+      <div id="resultadoBOM"></div>
+
+      <div id="diagramaBOM"></div>
+    </div>
+
+    <script src="/arboreo2.js"></script>
+  </body>
+</html>
