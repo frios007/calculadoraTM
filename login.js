@@ -3,6 +3,7 @@ const express = require('express');
 const session = require('express-session');
 const path = require('path');
 
+
 const conexion = mysql.createConnection({
     host: 'localhost',
     user: 'root',
@@ -39,28 +40,62 @@ app.post('/auth', function(request, response){
     let username = request.body.username;
     let password = request.body.password;
 
+    console.log('Username:', username);
+    console.log('Password:', password);
+
     if (username && password) {
         conexion.query('SELECT * FROM usuarios WHERE usuario = ? AND contrasena = ?', [username, password], function(error, results, fields){
             if (error) {
                 console.error('Error en la consulta:', error);
-                response.send('Error en la base de datos');
+                response.status(500).send('Error en la base de datos');
             } else {
                 if (results.length > 0) {
                     request.session.loggedin = true;
                     request.session.username = username;
-                    response.redirect('/home');
+                    response.status(200).json({ message: 'Inicio de sesión exitoso' });
                 } else {
-                    response.send('Usuario o Contraseña incorrecto!');
+                    response.status(401).json({ error: 'Usuario o Contraseña incorrecto' });
                 }
             }
         });
     } else {
-        response.send('Favor ingrese usuario y contraseña');
+        response.status(400).json({ error: 'Favor ingrese usuario y contraseña' });
     }
 });
 
-app.get('/home', function(request, response){
-    if (request.session.loggedin) {
+
+app.post('/register', function(request, response){
+    let usuario = request.body.usuario;
+    let nombre = request.body.nombre;
+    let apellido = request.body.apellido;
+    let email = request.body.email;
+    let contrasena = request.body.contrasena;
+
+    conexion.query('SELECT * FROM usuarios WHERE email = ?', [email], function(error, results, fields){
+        if (error) {
+            console.error('Error en la consulta:', error);
+            response.status(500).json({ error: 'Error en la base de datos' });
+        } else {
+            if (results.length > 0) {
+                response.status(409).json({ error: 'El correo electrónico ya está registrado' });
+            } else {
+                conexion.query('INSERT INTO usuarios (usuario, nombre, apellido, email, contrasena) VALUES (?, ?, ?, ?, ?)', 
+                    [usuario, nombre, apellido, email, contrasena], function(error, results, fields){
+                        if (error) {
+                            console.error('Error al insertar usuario:', error);
+                            response.status(500).json({ error: 'Error en la base de datos' });
+                        } else {
+                            response.status(200).json({ message: 'Usuario registrado correctamente' });
+                        }
+                    });
+            }
+        }
+    });
+});
+
+
+app.get('/home', function(request, response) {
+    if (request.session.loggedin && request.session.username) {
         response.sendFile(path.join(__dirname, 'index.html'));
     } else {
         response.send('Favor ingresa sesión para ver esta página!');

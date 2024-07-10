@@ -1,0 +1,50 @@
+body{
+    font-family: Tahoma, sans-serif;
+    background-color: hsl(0, 5%, 92%);
+  }
+
+  .contenedor-titulo{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    gap: 20px;
+    background-color: white;
+    width: 100dvh;
+    margin: auto;
+    margin-top: 30px;
+    border-radius: 15px;
+  }
+
+  .logoapp{
+    width: 200px;
+    height: 150px;
+  }
+
+  .logouni{
+    width: 200px;
+    height: 130px;
+  }
+
+    .form-contenedor{
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    width: 70vh;
+    height: 50vh;
+    background-color: white;
+    margin: auto;
+    margin-top: 30px;
+    text-align: center;
+    border-radius: 15px;
+  }
+
+  .entrada{
+    width: 35vh;
+    height: 3.5vh;
+    text-align: center;
+    border-radius: 5px;
+  }

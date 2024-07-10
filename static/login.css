@@ -60,6 +60,8 @@ body{
   background-color: hsl(0, 0%, 33%);
   color: white;
   font-weight: bold;
+  text-decoration: none;
+  font-size: medium;
   }
   
   .boton:hover{
@@ -72,4 +74,10 @@ body{
     text-align: center;
     border-radius: 5px;
   }
-  
+
+  a{
+    padding-top: 1.5px;
+    padding-bottom: 1.5px;
+    padding-left: 1.5px;
+    padding-right: 1.5px;
+  }

@@ -7,7 +7,6 @@
     <link rel="icon" href="/favicon.jpg" type="image/jpg" />
     <link href="/login.css" rel="stylesheet" type="text/css" />
   </head>
-
   <body>
     <div class="contenedor-grid">
       <div class="contenedor-logo">
@@ -19,7 +18,7 @@
       </div>
 
       <div class="contenedor-form">
-        <form action="/auth" method="post">
+        <form id="loginForm" action="/auth" method="POST">
           <input
             type="text"
             name="username"
@@ -37,9 +36,43 @@
             class="entrada"
           />
           <button class="boton" type="submit">Iniciar Sesión</button>
-          <button class="boton" type="submit">Crear cuenta nueva</button>
+          <a href="/registro.html" class="boton">Crear cuenta nueva</a> 
         </form>
       </div>
     </div>
+
+    <script>
+      document
+        .getElementById("loginForm")
+        .addEventListener("submit", function (event) {
+          event.preventDefault();
+
+          let username = document.getElementById("username").value;
+          let password = document.getElementById("password").value;
+
+          fetch("/auth", {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({ username, password }),
+          })
+            .then((response) => {
+              if (!response.ok) {
+                throw new Error("Network response was not ok");
+              }
+              return response.json();
+            })
+            .then((data) => {
+              console.log("Respuesta del servidor:", data);
+              alert(data.message);
+              window.location.href = "/index.html";
+            })
+            .catch((error) => {
+              console.error("Error al procesar la solicitud:", error);
+              alert("Usuario o Contraseña incorrecto!"); 
+            });
+        });
+    </script>
   </body>
 </html>

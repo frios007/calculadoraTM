@@ -3,58 +3,121 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="icon" href="/favicon.jpg" type="image/jpg" />
     <title>Registrar Usuario</title>
+    <link rel="icon" href="/favicon.jpg" type="image/jpg" />
+    <link rel="stylesheet" href="/registro.css" />
   </head>
   <body>
     <header>
       <div class="contenedor-titulo">
         <div class="logo-app">
-          <img src="/favicon.jpg" alt="Logo App" />
+          <img src="/favicon.jpg" alt="Logo App" class="logoapp" />
         </div>
-
         <div class="texto-titulo">
           <h3>Elaborado en</h3>
         </div>
-
         <div class="logo-uni">
-          <img src="/logo uni.png" alt="Logo UNI" />
+          <img src="/logo uni.png" alt="Logo UNI" class="logouni" />
         </div>
       </div>
     </header>
 
     <main>
-      <form action="">
+      <form id="registerForm" class="form-contenedor">
         <div class="contenedor-form"></div>
-        <h3>Saca el maximo potencial de un inventario empresarial</h3>
+        <h4>Registro:</h4>
+        <input
+          type="text"
+          id="usuario"
+          name="usuario"
+          class="entrada"
+          placeholder="Ingresa tu usuario"
+          required
+        />
         <input
           type="text"
           id="nombre"
+          name="nombre"
           class="entrada"
           placeholder="Ingresa tu primer Nombre"
+          required
+          pattern="[A-Za-zñÑáéíóúÁÉÍÓÚ\s]+"
         />
         <input
           type="text"
           id="apellido"
+          name="apellido"
           class="entrada"
           placeholder="Ingresa tu primer Apellido"
+          required
+          pattern="[A-Za-zñÑáéíóúÁÉÍÓÚ\s]+"
         />
         <input
           type="email"
           id="email"
+          name="email"
           class="entrada"
           placeholder="Ingresa tu correo electronico"
+          required
         />
-        <label for="contrasena">Minimo 8 caracteres</label>
         <input
           type="password"
           id="contrasena"
+          name="contrasena"
           class="entrada"
           placeholder="Ingresa tu contraseña"
           minlength="8"
+          required
         />
         <button type="submit">Registrarse</button>
+        <h4>Saca el maximo potencial de un inventario empresarial</h4>
       </form>
     </main>
+
+    <script>
+      document
+        .getElementById("registerForm")
+        .addEventListener("submit", function (event) {
+          event.preventDefault();
+
+          let usuario = document.getElementById("usuario").value;
+          let nombre = document.getElementById("nombre").value;
+          let apellido = document.getElementById("apellido").value;
+          let email = document.getElementById("email").value;
+          let contrasena = document.getElementById("contrasena").value;
+
+          fetch("/register", {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+              usuario,
+              nombre,
+              apellido,
+              email,
+              contrasena,
+            }),
+          })
+            .then((response) => {
+              if (!response.ok) {
+                throw new Error("Network response was not ok");
+              }
+              return response.json();
+            })
+            .then((data) => {
+              if (data.message) {
+                alert(data.message);
+                window.location.href = "/login.html";
+              } else if (data.error) {
+                alert(data.error);
+              }
+            })
+            .catch((error) => {
+              console.error("Error al procesar la solicitud:", error);
+              alert("Error al procesar la solicitud");
+            });
+        });
+    </script>
   </body>
 </html>
