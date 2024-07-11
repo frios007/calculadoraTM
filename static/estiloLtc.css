@@ -1,0 +1,111 @@
+body{
+    font-family: Helvetica, sans-serif;
+    margin: 0;
+    background-color: hsl(0, 0%, 91%)
+  }
+  
+  .contenedor-titulo{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    border-radius: 15px;
+    border: 3px solid #eaf6f6;
+    background-color: white;
+    }
+    
+    .contenedor-titulo .atras{
+        margin-right: auto;
+        margin-left: 5px;
+    }
+    
+    .contenedor-titulo img{
+    width: 50px;
+    height: 50px;
+    }
+    
+    .contenedor-titulo .titulo{
+        margin-right: auto;
+    }
+  
+    .contenedor-entradas{
+      display: flex;
+      flex-direction: row;
+      justify-content: center;
+      align-items: center;
+      margin: auto;
+      width: 100vh;
+    }
+  
+    .contenedor-1{
+      text-align: center;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 20px;
+      border: 3px hsl(0, 0%, 85%) solid;
+      height: 10dvh;
+      width: 40dvh;
+      margin: auto;
+      margin-top: 30px;
+      background-color: white;
+      border-radius: 20px;
+  }
+  
+  .contenedor-tablas{
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 20px;
+    border: 3px hsl(0, 0%, 85%) solid;
+    height: 50dvh;
+    width: 90%;
+    margin: auto;
+    margin-top: 30px;
+    background-color: white;
+    border-radius: 20px;
+  }
+  
+  .contenedor-2{
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 20px;
+    border: 3px hsl(0, 0%, 85%) solid;
+    height: 20dvh;
+    width: 35dvh;
+    margin: auto;
+    margin-top: 30px;
+    background-color: white;
+    border-radius: 20px;
+  }
+  
+  input[type="number"] {
+    text-align: center;
+  
+  }
+  
+  input[type="number"]::-webkit-outer-spin-button,
+  input[type="number"]::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+  }
+  
+  table{
+    width: 100%;
+  }
+  
+  
+          
+  
+  
+  
+    
+       
+  
+        

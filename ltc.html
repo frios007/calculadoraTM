@@ -1,166 +1,50 @@
-
 <!DOCTYPE html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>LTC</title>
-    <link rel="stylesheet" href="/estiloLuc.css" />
+    <link rel="stylesheet" href="/estiloLtc.css" />
     <link rel="icon" href="/favicon.jpg" type="image/jpg" />
+    <script src="/calcularLtc.js"></script>
   </head>
   <body>
-    <h1>Metodo Del Menor Costo Total LTC
-    </h1>
-    <h3>Complete los siguientes 2 datos:</h2>
-    <input type="number" id="costo-ordenar" placeholder="Costo Ordenar (S)" min="0" required>
-    <input type="number" id="k" placeholder="K" min="0" required>
-    <br><br>
-    <h3>Ingrese la cantidad de unidades en cada casilla de las semanas:</h3>
-    <table border="1" cellspacing="0" cellpadding="3" width="90%">
-      <tr>
-        <th rowspan="2"></th>
-        <th colspan="10">Semanas</th>
-      </tr>
+    <header>
+      <div class="contenedor-titulo">
+        <div class="atras">
+          <a class="link-atras" href="/index.html"
+            ><img src="/home.png" alt="atras"
+          /></a>
+        </div>
 
-      <tr>
-        <th>1</th>  
-        <th>2</th>
-        <th>3</th>
-        <th>4</th>
-        <th>5</th>
-        <th>6</th>
-        <th>7</th>
-        <th>8</th>
-        <th>9</th>
-        <th>10</th>
-      </tr>
+        <div class="titulo">
+          <h1 class="h1-titulo">Caclulo de LTC</h1>
+        </div>
+      </div>
+    </header>
 
-      <tr class="req">
-        <td>Requerimiento bruto</td>
-        <td><input type="number" id="unidad1" min="0" required/></td>
-        <td><input type="number" id="unidad2" min="0" required/></td>
-        <td><input type="number" id="unidad3" min="0" required/></td>
-        <td><input type="number" id="unidad4" min="0" required/></td>
-        <td><input type="number" id="unidad5" min="0" required/></td>
-        <td><input type="number" id="unidad6" min="0" required/></td>
-        <td><input type="number" id="unidad7" min="0" required/></td>
-        <td><input type="number" id="unidad8" min="0" required/></td>
-        <td><input type="number" id="unidad9" min="0" required/></td>
-        <td><input type="number" id="unidad10" min="0" required/></td>
-      </tr>
+    <div class="contenedor-entradas">
+      <div class="contenedor-1">
+        <div class="input1">
+          <input type="number" id="numColumnas" placeholder="Ingrese semanas" />
+        </div>
+        <div class="boton1">
+          <button onclick="generarTabla(); generarTablaCalculos();">
+            Generar Tabla
+          </button>
+        </div>
+      </div>
 
-      <tr>
-        <td>Recepción planeada</td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-      </tr>
-    </table> <br> <br>
-    <button id="calcularLuc">Calcular LTC!</button>
-    <script src="/calcularLuc.js"></script>
-    <br />
-    <br />
-    <br />
+      <div class="contenedor-2">
+        <input type="number" id="k" placeholder="ingrese el valor de K" />
+        <input type="number" id="s" placeholder="ingrese el valor de S" />
+        <button onclick="asignarValores(); operaciones();">Calcular LTC</button>
+      </div>
+    </div>
 
-    <table border="1" cellspacing="0" cellpadding="3" width="90%">
-
-      <tr>
-        <th>Periodo</th>
-        <th>Unidades</th>
-        <th>Periodos Mantenidos</th>
-        <th>Costo de Mantenimiento</th>
-        <th>Costo de mantenimiento acumulado</th>
-      </tr>
-
-      <tr id="iteracion1">
-        <td><p id="ip1"></p></td>
-        <td><p id="iu1"></p></td>
-        <td><p id="is1"></p></td>
-        <td><p id="ik1"></p></td>
-        <td><p id="ict1"></p></td>
-      </tr>
-
-      <tr id="iteracion2">
-        <td><p id="ip2"></p></td>
-        <td><p id="iu2"></p></td>
-        <td><p id="is2"></p></td>
-        <td><p id="ik2"></p></td>
-        <td><p id="ict2"></p></td>
-      </tr>
-
-      <tr id="iteracion3">
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-      </tr>
-
-      <tr id="iteracion4">
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-      </tr>
-
-      <tr id="iteracion5">
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-      </tr>
-
-      <tr id="iteracion6">
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-      </tr>
-
-      <tr id="iteracion7">
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-      </tr>
-
-      <tr id="iteracion8">
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-      </tr>
-
-      <tr id="iteracion9">
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-      </tr>
-
-      <tr id="iteracion10">
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-      </tr>
-
-    </table> <br> <br>
-
-    <a href="/index.html">Volver atras</a>
+    <div class="contenedor-tablas">
+      <div id="tabla-contenedor"></div>
+      <div id="tabla-contenedor2"></div>
+    </div>
   </body>
 </html>
