@@ -5,12 +5,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="/estiloRotacionInv.css" />
     <link rel="icon" href="/favicon.jpg" type="image/jpg" />
+    <script src="/calcularRI.js"></script>
     <title>Rotacion Simple</title>
   </head>
   <body class="cuerpo-metodo">
     <div class="contenedor-metodo1">
       <div class="contenedor-rotacion-simple">
-        <form action="">
+        <form>
           <h3>A continuacion ingrese los datos correspondientes</h3>
           <input
             class="entrada"
@@ -33,10 +34,10 @@
             placeholder="Inventario Seguridad (SS)"
           />
 
-          <button class="boton" id="rotacionSimple">Calcular!</button><br />
-          <p id="invetarioPromedio"></p>
+          <button onclick="calcularRotacion();" class="boton">Calcular!</button
+          ><br />
+          <p id="inventarioPromedio"></p>
           <p id="resultado"></p>
-          <script src="/calcularRI.js"></script>
         </form>
       </div>
     </div>

@@ -5,40 +5,37 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="/estiloRotacionInv.css" />
     <link rel="icon" href="/favicon.jpg" type="image/jpg" />
+    <script src="/calcularRiStock.js"></script>
     <title>Rotacion Stock</title>
   </head>
   <body class="cuerpo-metodo">
     <div class="contenedor-metodo2">
-      
-        <form action="">
-          <div class="contenedor-rotacion-stock"></div>
-          <h3>A continuacion ingrese los datos correspondientes</h3>
-          
-          <input
-           class="entrada" 
-           type="number" 
-           id="demandaSemanal" 
-           placeholder="Demanda (d)" 
-           />
-          <input
-            class="entrada"
-            type="number"
-            id="cicloRevision"
-            placeholder="Ciclo de Revision (T)"
-          />
-          <input
-            class="entrada"
-            type="number"
-            id="invSeguridad"
-            placeholder="Invetario seguridad (SS)"
-          />
-          <button class="boton" id="rotacionStock">Calcular!</button> <br />
-          <p id="vps"></p>
-          <p id="respuesta"></p>
-          <script src="/calcularRiStock.js"></script>
-        </div>
-        </form>
-      
+      <form>
+        <div class="contenedor-rotacion-stock"></div>
+        <h3>A continuacion ingrese los datos correspondientes</h3>
+        <input
+          class="entrada"
+          type="number"
+          id="demandaSemanal"
+          placeholder="Demanda (d)"
+        />
+        <input
+          class="entrada"
+          type="number"
+          id="cicloRevision"
+          placeholder="Ciclo de Revision (T)"
+        />
+        <input
+          class="entrada"
+          type="number"
+          id="invSeguridad"
+          placeholder="Inventario Seguridad (SS)"
+        />
+        <button class="boton" onclick="calcularRotacion();">Calcular!</button
+        ><br />
+        <p id="vps"></p>
+        <p id="respuesta"></p>
+      </form>
     </div>
   </body>
 </html>

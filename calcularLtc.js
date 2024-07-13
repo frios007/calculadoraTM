@@ -1,4 +1,20 @@
+function validarNumColumnas() {
+    var numColumnas = parseInt(document.getElementById('numColumnas').value, 10);
+    if (isNaN(numColumnas) || numColumnas <= 0) {
+        alert('Por favor, ingrese un número válido y positivo para el número de columnas.');
+        return false;
+    }
+    return true;
+}
+
+
+
 function generarTabla() {
+
+    if (!validarNumColumnas()) {
+        return;
+    }
+
     var numColumnas = document.getElementById('numColumnas').value;
     var contenedor = document.getElementById('tabla-contenedor');
 
@@ -63,6 +79,8 @@ function generarTabla() {
 
     contenedor.innerHTML = '';
     contenedor.appendChild(tabla);
+
+    generarTablaCalculos();
 }
 
 function generarTablaCalculos() {
@@ -119,7 +137,40 @@ function generarTablaCalculos() {
 }
 
 
+function validarSK() {
+    var k = parseFloat(document.getElementById('k').value);
+    var s = parseFloat(document.getElementById('s').value);
+
+    if (isNaN(k) || k <= 0) {
+        alert('Por favor, ingrese un valor válido y positivo para K.');
+        return false;
+    }
+    if (isNaN(s) || s <= 0) {
+        alert('Por favor, ingrese un valor válido y positivo para S.');
+        return false;
+    }
+    return true;
+}
+
+function validarRequerimientosBrutos() {
+    var numColumnas = document.getElementById('numColumnas').value;
+
+    for (var i = 0; i < numColumnas; i++) {
+        var input = document.getElementById('unidad' + (i + 1));
+        var valor = parseFloat(input.value);
+        if (isNaN(valor) || valor < 0) {
+            alert('Por favor, ingrese valores válidos y no negativos en los requerimientos brutos.');
+            return false;
+        }
+    }
+    return true;
+}
+
 function asignarValores() {
+    if (!validarRequerimientosBrutos()) {
+        return;
+    }
+
     var numColumnas = document.getElementById('numColumnas').value;
 
     var requerimientosBrutos = [];
@@ -153,44 +204,68 @@ function asignarValores() {
             }
         }
     }
+
+    operaciones();
 }
 
 function operaciones() {
+    if (!validarSK()) {
+        return;
+    }
+
     var k = parseFloat(document.getElementById('k').value);
+    var s = parseFloat(document.getElementById('s').value);
+
     var tablaCalculos = document.getElementById('tabla-calculos');
+    var filas = tablaCalculos.getElementsByTagName('tr');
 
-    if (tablaCalculos) {
-        var filas = tablaCalculos.getElementsByTagName('tr');
-        for (var i = 1; i < filas.length; i++) { 
-            var celdas = filas[i].getElementsByTagName('td');
+    var costoAcumulado = 0;
+    var periodosMantenidos = 0;
+    var periodoActual = 1;
 
-            if (i === 1) {
-                var spanCostoMantenimiento = celdas[3].getElementsByTagName('span')[0];
-                var spanCostoAcumulado = celdas[4].getElementsByTagName('span')[0];
+    for (var i = 1; i < filas.length; i++) {
+        var celdas = filas[i].getElementsByTagName('td');
+        var unidades = parseFloat(celdas[1].getElementsByTagName('span')[0].textContent);
+        
+        var costoMantenimiento = unidades * periodosMantenidos * k;
+        costoAcumulado += costoMantenimiento;
 
-                if (spanCostoMantenimiento) {
-                    spanCostoMantenimiento.textContent = '0.00';
-                }
-                if (spanCostoAcumulado) {
-                    spanCostoAcumulado.textContent = '0.00';
-                }
-            } else {
-                var unidadesActual = parseFloat(celdas[1].getElementsByTagName('span')[0].textContent);
-                var periodoAnterior = parseFloat(filas[i - 1].getElementsByTagName('td')[0].getElementsByTagName('span')[0].textContent);
+        celdas[3].getElementsByTagName('span')[0].textContent = costoMantenimiento.toFixed(2);
+        celdas[4].getElementsByTagName('span')[0].textContent = costoAcumulado.toFixed(2);
 
-                var costoMantenimiento = (unidadesActual * periodoAnterior * k).toFixed(2);
-                var costoAcumulado = costoMantenimiento; //
+        if (costoAcumulado >= s) {
+            periodosMantenidos = 0;
+            costoAcumulado = 0;
+            periodoActual = 1;
+        } else {
+            periodosMantenidos++;
+            periodoActual++;
+        }
 
-                var spanCostoMantenimiento = celdas[3].getElementsByTagName('span')[0];
-                var spanCostoAcumulado = celdas[4].getElementsByTagName('span')[0];
+        if (i < filas.length - 1) { // Reset values for the next iteration
+            var nextCeldas = filas[i + 1].getElementsByTagName('td');
+            nextCeldas[2].getElementsByTagName('span')[0].textContent = periodosMantenidos;
+            nextCeldas[0].getElementsByTagName('span')[0].textContent = periodoActual;
+        }
+    }
 
-                if (spanCostoMantenimiento) {
-                    spanCostoMantenimiento.textContent = costoMantenimiento;
-                }
-                if (spanCostoAcumulado) {
-                    spanCostoAcumulado.textContent = costoAcumulado;
-                }
-            }
+    resaltarFilas();
+}
+
+function resaltarFilas() {
+    var s = parseFloat(document.getElementById('s').value);
+    var tablaCalculos = document.getElementById('tabla-calculos');
+    var filas = tablaCalculos.getElementsByTagName('tr');
+
+    for (var i = 1; i < filas.length; i++) { // Empezamos en 1 para omitir la fila del encabezado
+        var celdas = filas[i].getElementsByTagName('td');
+        var costoAcumulado = parseFloat(celdas[4].getElementsByTagName('span')[0].textContent);
+
+        if (costoAcumulado >= s) {
+            filas[i].style.backgroundColor = 'red';
+        } else {
+            filas[i].style.backgroundColor = ''; // Eliminar el resaltado si no cumple la condición
         }
     }
 }
+

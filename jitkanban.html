@@ -1,11 +1,59 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-</head>
-<body>
-    
-</body>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="/estiloJit.css" />
+    <link rel="icon" href="/favicon.jpg" type="image/jpg" />
+    <script src="/calcularJit.js"></script>
+    <title>Calculo de Kanban</title>
+  </head>
+  <body>
+    <header>
+      <div class="contenedor-titulo">
+        <div class="atras">
+          <a class="link-atras" href="/index.html"
+            ><img src="/home.png" alt="atras"
+          /></a>
+        </div>
+
+        <div class="titulo">
+          <h1 class="h1-titulo">Caclulo de Kanban</h1>
+        </div>
+      </div>
+    </header>
+
+    <main>
+      <div class="contenedor-entradas">
+        <h2>A continuacion ingrese los datos correspondientes</h2>
+        <input
+          type="number"
+          id="demanda"
+          class="entrada"
+          placeholder="Ingrese la demanda"
+        />
+        <input
+          type="number"
+          id="tiempo"
+          placeholder="Ingrese el tiempo"
+          class="entrada"
+        />
+        <select class="selector" id="seleccion">
+          <option value="segundos">Segundos</option>
+          <option value="minutos">Minutos</option>
+          <option value="horas">Horas</option>
+        </select>
+        <input
+          type="number"
+          id="recipientes"
+          class="entrada"
+          placeholder="Ingrese las unidades/recipientes"
+        />
+
+        <button onclick="calculoJit();" class="boton">Calcular!</button>
+        <p id="resultado"></p>
+        <p id="inventario"></p>
+      </div>
+    </main>
+  </body>
 </html>

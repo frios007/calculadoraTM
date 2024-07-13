@@ -85,9 +85,17 @@ body{
     border-radius: 20px;
   }
   
-  input[type="number"] {
+  .contenedor-2 input[type="number"] {
     text-align: center;
-  
+  }
+
+  .contenedor-tablas input[type="number"] {
+    width: 50px;
+    text-align: center;
+  }
+
+  .contenedor-entradas input[type="number"] {
+    text-align: center;
   }
   
   input[type="number"]::-webkit-outer-spin-button,
@@ -96,13 +104,8 @@ body{
     margin: 0;
   }
   
-  table{
-    width: 100%;
-  }
-  
-  
-          
-  
+
+
   
   
     

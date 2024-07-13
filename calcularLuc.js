@@ -1,22 +1,21 @@
-function validarCampos() {
 
+function validarNumColumnas() {
     var numColumnas = document.getElementById('numColumnas').value;
-    numColumnas = parseInt(numColumnas);
-
-    if (isNaN(numColumnas) || numColumnas <= 0) {
+    if (!numColumnas || isNaN(numColumnas) || numColumnas <= 0) {
+        alert('El valor de las Semanas debe ser un número positivo.');
         return false;
     }
     return true;
 }
 
 
-function generarTabla() {
 
-    var camposValidos = validarCampos();
-    if (!camposValidos) {
-        alert('Advertencia: Ingrese un número válido mayor que cero en el campo de Semanas.');
+
+function generarTabla() {
+    if (!validarNumColumnas()) {
         return;
     }
+    
 
     var numColumnas = document.getElementById('numColumnas').value;
     var contenedor = document.getElementById('tabla-contenedor');
@@ -82,14 +81,11 @@ function generarTabla() {
 
     contenedor.innerHTML = '';
     contenedor.appendChild(tabla);
+    generarTablaCalculos();
 }
 
 
 function generarTablaCalculos() {
-    var camposValidos = validarCampos();
-    if (!camposValidos) {
-        return;
-    }
 
     var numColumnas = parseInt(document.getElementById('numColumnas').value, 10);
     var tablaContenedor2 = document.getElementById('tabla-contenedor2');
@@ -146,68 +142,41 @@ function generarTablaCalculos() {
 }
 
 
-function validarTablas() {
-    var valores = [];
-    var inputs = document.querySelectorAll('#tabla-contenedor input[type="number"]');
-    var valorNegativoEncontrado = false;
-    var campoVacioEncontrado = false;
+function validarKS() {
+    var k = document.getElementById('k').value;
+    var s = document.getElementById('s').value;
 
-    inputs.forEach(function(input) {
-        var valor = input.value;
-
-        if (valor === '') {
-            campoVacioEncontrado = true;
-            return;
-        }
-
-        valor = parseFloat(valor);
-
-        if (valor <= 0) {
-            valorNegativoEncontrado = true;
-            return;
-        }
-        valores.push(valor);
-    });
-
-    if(valores.length === 0){
-        alert('Advertencia: Debes de indicar valores válidos del Requerimiento bruto.');
+    if (!k || isNaN(k) || k < 0) {
+        alert('El valor de K debe ser un número positivo.');
         return false;
     }
-
-    if (campoVacioEncontrado) {
-        alert('Advertencia: Hay campos vacíos o erróneos. Por favor, complete todos los valores adecuadamente.');
+    if (!s || isNaN(s) || s < 0) {
+        alert('El valor de S debe ser un número positivo.');
         return false;
     }
-
-    if (valorNegativoEncontrado) {
-        alert('Advertencia: Se ingresó un valor negativo. Por favor, corrija los valores.');
-        return false;
-    }
-
-    let k = document.getElementById('k').value;
-    k = parseInt(k);
-    let s = document.getElementById('s').value;
-    s = parseInt(s);
-
-    if(isNaN(k) || k < 0){
-        alert('Advertencia: Ingrese un valor válido para k');
-        return false;
-    }
-
-    if(isNaN(s) || s < 0){
-        alert('Advertencia: Ingrese un valor válido para s');
-        return false;
-    }
-
     return true;
 }
 
 
 
+function validarRequerimientosBrutos(numColumnas) {
+    for (var i = 0; i < numColumnas; i++) {
+        var requerimientoInput = document.getElementById('unidad' + (i + 1));
+        var valorRequerimiento = requerimientoInput.value;
+        if (!valorRequerimiento || isNaN(valorRequerimiento) || valorRequerimiento <= 0) {
+            alert('Todos los valores de requerimientos brutos deben ser números positivos.');
+            return false;
+        }
+    }
+    return true;
+}
+
+
+
+
 function operaciones() {
 
-    var tablasValidas = validarTablas();
-    if (!tablasValidas) {
+    if (!validarKS()) {
         return;
     }
 
@@ -215,10 +184,15 @@ function operaciones() {
     var s = parseFloat(document.getElementById('s').value);
     var k = parseFloat(document.getElementById('k').value);
 
+
+
     var unidades = [];
     var sumaAcumuladaUnidades = 0;
 
     for (var i = 0; i < numColumnas; i++) {
+        if (!validarRequerimientosBrutos(numColumnas)) {
+            return;
+        }
         var requerimientoInput = document.getElementById('unidad' + (i + 1));
         var unidad = parseInt(requerimientoInput.value, 10);
         unidades.push(unidad);
@@ -229,6 +203,8 @@ function operaciones() {
             unidadesSpan.textContent = sumaAcumuladaUnidades;
         }
     }
+
+
 
     var tablaCalculos = document.getElementById('tabla-calculos');
     var tbodyCalculos = tablaCalculos.querySelector('tbody');
@@ -273,15 +249,11 @@ function operaciones() {
         costoTotalAnterior = costoTotal;
         periodoAnterior = periodoActual;
     });
+    resaltarMaximosYCopiar();
 }
 
+
 function resaltarMaximosYCopiar() {
-
-    var tablasValidas = validarTablas();
-    if (!tablasValidas) {
-        return;
-    }
-
     var filasCalculos = document.querySelectorAll('#tabla-calculos tbody tr');
 
     var costosUnitarios = [];

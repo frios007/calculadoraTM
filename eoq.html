@@ -6,6 +6,7 @@
     <title>Calular EOQ</title>
     <link rel="icon" href="/favicon.jpg" type="image/jpg" />
     <link rel="stylesheet" href="/estiloEOQ.css" />
+    <script src="/calcularEoq.js"></script>
   </head>
   <body>
     <header>
@@ -30,25 +31,26 @@
             class="entrada"
             type="number"
             id="demanda"
-            placeholder=" Demanda Anual "
+            placeholder=" Demanda Anual (D)"
             required="required"
           />
           <input
             class="entrada"
             type="number"
             id="costoP"
-            placeholder=" Costo por Pedido "
+            placeholder=" Costo por Pedido (S)"
             required
           />
           <input
             class="entrada"
             type="number"
             id="costoM"
-            placeholder=" Costo Mantenimiento "
+            placeholder=" Costo Mantenimiento (H)"
             required
           />
-          <button id="resolver" class="boton">Calcular EOQ</button>
-          <script src="/calcularEoq.js"></script>
+          <button onclick="calcularEOQ();"class="boton">
+            Calcular EOQ
+          </button>
           <p class="resultado" id="resultado">El resultado aparecerá aquí.</p>
         </div>
       </div>

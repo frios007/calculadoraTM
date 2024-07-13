@@ -5,15 +5,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="/estiloCmc.css" />
     <link rel="icon" href="/favicon.jpg" type="image/jpg" />
+    <script src="/calcularCMC.js"></script>
     <title>Calcular CMC</title>
   </head>
   <body>
     <header>
       <div class="contenedor1">
         <div class="imagen_atras">
-          <a href="/index.html"
-            ><img src="/home.png" alt="Inicio"
-          /></a>
+          <a href="/index.html"><img src="/home.png" alt="Inicio" /></a>
         </div>
 
         <div class="titulo"><h2>Calculo de Mantenimiento Correctivo</h2></div>
@@ -73,10 +72,8 @@
             id="costoFalla"
             placeholder="Costo falla unica"
           />
-          <button class="boton" id="calcCMC">Calcular CMC</button>
-          <script src="/calcularCMC.js"></script>
+          <button onclick="calculoCMC();" class="boton">Calcular CMC</button>
           <p id="numeroFallas"></p>
-          <p id="resultadoCmc"></p>
         </div>
       </div>
     </main>
